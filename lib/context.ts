@@ -1,9 +1,9 @@
 import { createNamespace } from 'cls-hooked';
 import { NextFunction, Request, Response } from 'express';
 import { Logger as PinoLogger } from 'pino';
+import {LOGGER_ASYNC_TOKEN} from './constants';
 
-const LOGGER_TOKEN = 'dozi-nest-pino-logger';
-const ctx = createNamespace(LOGGER_TOKEN);
+const ctx = createNamespace(LOGGER_ASYNC_TOKEN);
 
 /**
  * Starts an async context for logger middleware
@@ -24,7 +24,7 @@ export function startContext(req: Request, res: Response, next: NextFunction) {
  * @param next
  */
 export function setLogger(req: Request, _res: Response, next: NextFunction) {
-    ctx.set(LOGGER_TOKEN, req.log);
+    ctx.set(LOGGER_ASYNC_TOKEN, req.log);
     next();
 }
 
@@ -32,6 +32,6 @@ export function setLogger(req: Request, _res: Response, next: NextFunction) {
  * Fetch logger from context
  */
 export function getLogger(): PinoLogger {
-    return ctx.get(LOGGER_TOKEN);
+    return ctx.get(LOGGER_ASYNC_TOKEN);
 }
 
