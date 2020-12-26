@@ -1,6 +1,6 @@
 import { createNamespace } from 'cls-hooked';
 import { NextFunction, Request, Response } from 'express';
-import { Logger as PinoLogger } from 'pino';
+import { Logger } from 'pino';
 import {LOGGER_ASYNC_TOKEN} from './constants';
 
 const ctx = createNamespace(LOGGER_ASYNC_TOKEN);
@@ -31,7 +31,7 @@ export function setLogger(req: Request, _res: Response, next: NextFunction) {
 /**
  * Fetch logger from context
  */
-export function getLogger(): PinoLogger {
+export function getLogger(): Logger {
     return ctx.get(LOGGER_ASYNC_TOKEN);
 }
 
